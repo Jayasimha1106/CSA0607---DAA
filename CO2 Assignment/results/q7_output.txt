@@ -1,0 +1,42 @@
+PREDICTION (made before running): distance calculations drop from n(n-1)/2 to roughly O(n)-O(n^1.5)
+for uniform data (>=90% fewer at n=3200); worst case for the pruning = points that share the sort-axis value.
+
+== uniform ==
+     n  orig calcs  new calcs  reduction  orig t(s)  new t(s)  speedup
+   100        4950        108     97.82%     0.0006    0.0001     7.1x
+   200       19900        373     98.13%     0.0026    0.0001    18.5x
+   400       79800        956     98.80%     0.0080    0.0003    27.1x
+   800      319600       1574     99.51%     0.0314    0.0006    56.6x
+  1600     1279200       2882     99.77%     0.1328    0.0012   114.4x
+  3200     5118400       3370     99.93%     0.5078    0.0018   278.1x
+
+== clustered ==
+     n  orig calcs  new calcs  reduction  orig t(s)  new t(s)  speedup
+   100        4950        128     97.41%     0.0004    0.0001     7.9x
+   200       19900        283     98.58%     0.0018    0.0001    17.2x
+   400       79800        238     99.70%     0.0075    0.0002    44.7x
+   800      319600        480     99.85%     0.0315    0.0004    88.4x
+  1600     1279200        587     99.95%     0.1283    0.0008   169.9x
+  3200     5118400       1251     99.98%     0.5712    0.0022   253.9x
+
+== vertical line (x equal) ==
+     n  orig calcs  new calcs  reduction  orig t(s)  new t(s)  speedup
+   100        4950          2     99.96%     0.0008    0.0001    11.3x
+   200       19900          6     99.97%     0.0031    0.0001    25.0x
+   400       79800          6     99.99%     0.0122    0.0002    49.7x
+   800      319600          6    100.00%     0.0445    0.0003   132.8x
+  1600     1279200         12    100.00%     0.1358    0.0007   195.0x
+  3200     5118400         10    100.00%     0.5431    0.0013   430.9x
+
+== two columns (adversarial) ==
+     n  orig calcs  new calcs  reduction  orig t(s)  new t(s)  speedup
+   100        4950       2451     50.48%     0.0004    0.0003     1.4x
+   200       19900       9901     50.25%     0.0019    0.0013     1.5x
+   400       79800      39969     49.91%     0.0080    0.0053     1.5x
+   800      319600     159664     50.04%     0.0310    0.0210     1.5x
+  1600     1279200     639561     50.00%     0.1311    0.0992     1.3x
+  3200     5118400    2558761     50.01%     0.5630    0.3486     1.6x
+
+All redesigned results matched brute force (assertion passed).
+
+Redesign at n=100000 (brute force would need 4,999,950,000 calcs): 122,468 calcs, 0.08 s

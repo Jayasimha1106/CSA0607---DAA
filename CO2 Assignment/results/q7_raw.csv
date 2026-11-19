@@ -1,0 +1,25 @@
+distribution,n,orig_calcs,new_calcs,orig_time_s,new_time_s
+uniform,100,4950,108,0.0006,0.0001
+uniform,200,19900,373,0.0026,0.0001
+uniform,400,79800,956,0.008,0.0003
+uniform,800,319600,1574,0.0314,0.0006
+uniform,1600,1279200,2882,0.1328,0.0012
+uniform,3200,5118400,3370,0.5078,0.0018
+clustered,100,4950,128,0.0004,0.0001
+clustered,200,19900,283,0.0018,0.0001
+clustered,400,79800,238,0.0075,0.0002
+clustered,800,319600,480,0.0315,0.0004
+clustered,1600,1279200,587,0.1283,0.0008
+clustered,3200,5118400,1251,0.5712,0.0022
+vertical line (x equal),100,4950,2,0.0008,0.0001
+vertical line (x equal),200,19900,6,0.0031,0.0001
+vertical line (x equal),400,79800,6,0.0122,0.0002
+vertical line (x equal),800,319600,6,0.0445,0.0003
+vertical line (x equal),1600,1279200,12,0.1358,0.0007
+vertical line (x equal),3200,5118400,10,0.5431,0.0013
+two columns (adversarial),100,4950,2451,0.0004,0.0003
+two columns (adversarial),200,19900,9901,0.0019,0.0013
+two columns (adversarial),400,79800,39969,0.008,0.0053
+two columns (adversarial),800,319600,159664,0.031,0.021
+two columns (adversarial),1600,1279200,639561,0.1311,0.0992
+two columns (adversarial),3200,5118400,2558761,0.563,0.3486

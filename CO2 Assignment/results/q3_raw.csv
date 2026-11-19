@@ -1,0 +1,6 @@
+test,n,m,comparisons,matches
+T1 BEST: first char never matches,10000,10,9991,0
+T2 WORST: a^n vs a^(m-1)b,10000,10,99910,0
+T3 EXTRA: random log text,10000,4,10394,0
+T4 EXTRA: pattern found at index 0 (stop at first),10000,10,10,1
+T5 EXTRA: mismatch near start of pattern vs end,10000,10,54955,0

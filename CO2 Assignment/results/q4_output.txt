@@ -1,0 +1,19 @@
+     n  pairs examined    n(n-1)/2  dist calcs  time (s)  min dist
+   100            4950        4950        4950    0.0008    40.571
+   200           19900       19900       19900    0.0030    63.993
+   400           79800       79800       79800    0.0127    20.154
+   800          319600      319600      319600    0.0536    14.988
+  1600         1279200     1279200     1279200    0.2193     8.906
+  3200         5118400     5118400     5118400    0.7211     1.251
+
+Growth check (n doubles -> pairs x4):
+  n   100 ->   200: pairs x4.02, time x3.75
+  n   200 ->   400: pairs x4.01, time x4.23
+  n   400 ->   800: pairs x4.01, time x4.22
+  n   800 ->  1600: pairs x4.00, time x4.09
+  n  1600 ->  3200: pairs x4.00, time x3.29
+
+Fitted cost per pair = 148.0 ns (pure Python)
+  acceptable response time   0.1 s  ->  n_max ~ 1,163 drones
+  acceptable response time   1.0 s  ->  n_max ~ 3,677 drones
+  acceptable response time  10.0 s  ->  n_max ~ 11,626 drones

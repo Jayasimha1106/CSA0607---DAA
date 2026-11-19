@@ -1,0 +1,30 @@
+n = 10000 (text length), m = 10 (pattern length)
+
+T1 BEST: first char never matches
+   predicted: n-m+1 = 9991
+   observed comparisons = 9991, matches = 0
+
+T2 WORST: a^n vs a^(m-1)b
+   predicted: (n-m+1)*m = 99910
+   observed comparisons = 99910, matches = 0
+
+T3 EXTRA: random log text
+   predicted: ~ n*1.04 (26-27 symbols)
+   observed comparisons = 10394, matches = 0
+
+T4 EXTRA: pattern found at index 0 (stop at first)
+   predicted: m = 10
+   observed comparisons = 10, matches = 1
+
+T5 EXTRA: mismatch near start of pattern vs end
+   predicted: partial repeats
+   observed comparisons = 54955, matches = 0
+
+Effect of pattern length on worst case (text = A^10000, pattern = A^(m-1) B):
+    m   comparisons     (n-m+1)*m
+    2         19998         19998
+    5         49980         49980
+   10         99910         99910
+   20        199620        199620
+   50        497550        497550
+  100        990100        990100

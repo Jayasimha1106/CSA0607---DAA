@@ -1,0 +1,29 @@
+A: 25 random pts (boundary + interior)
+   n = 25 distinct points, hull vertices = 9, hull edges accepted = 9, side-tests = 1639
+   hull (CCW): [(0, 26), (16, 0), (83, 6), (99, 27), (99, 31), (98, 49), (88, 94), (20, 97), (1, 93)]
+
+B1 (challenge): square + collinear edge pts + duplicates + interior
+   n = 11 distinct points, hull vertices = 4, hull edges accepted = 4, side-tests = 147
+   hull (CCW): [(0, 0), (10, 0), (10, 10), (0, 10)]
+
+B2 (challenge): all points collinear
+   n = 8 distinct points, hull vertices = 2, hull edges accepted = 1, side-tests = 48
+   hull (CCW): [(7, 14), (0, 0)]
+
+B3 (challenge): points on a circle + centre
+   n = 13 distinct points, hull vertices = 12, hull edges accepted = 12, side-tests = 443
+   hull (CCW): [(15, 30), (30, 15), (50, 10), (70, 15), (85, 30), (90, 50), (85, 70), (70, 85), (50, 90), (30, 85), (15, 70), (10, 50)]
+
+Computational work vs n (random points):
+    n    side tests  worst n^2(n-2)/2  time (s) hull size
+   10           187               360    0.0001         6
+   20          1003              3420    0.0002        10
+   40          3043             29640    0.0006         8
+   80         18426            246480    0.0029        11
+  160         50867           2009760    0.0086        11
+  320        340663          16230720    0.0628        12
+  n x2: tests x5.36, time x2.00
+  n x2: tests x3.03, time x3.00
+  n x2: tests x6.06, time x4.83
+  n x2: tests x2.76, time x2.97
+  n x2: tests x6.70, time x7.30

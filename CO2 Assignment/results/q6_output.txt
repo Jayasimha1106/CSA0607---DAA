@@ -1,0 +1,37 @@
+CORRECTNESS CHECK  (payload limit = 10)
+Mask  Items          Weight Value Feasible
+0000  -                  0     0   YES
+0001  P1                 5    10   YES
+0010  P2                 4    40   YES
+0011  P1,P2              9    50   YES
+0100  P3                 6    30   YES
+0101  P1,P3             11    40   no
+0110  P2,P3             10    70   YES
+0111  P1,P2,P3          15    80   no
+1000  P4                 3    50   YES
+1001  P1,P4              8    60   YES
+1010  P2,P4              7    90   YES
+1011  P1,P2,P4          12   100   no
+1100  P3,P4              9    80   YES
+1101  P1,P3,P4          14    90   no
+1110  P2,P3,P4          13   120   no
+1111  P1,P2,P3,P4       18   130   no
+Exhaustive (mask):       (90, ['P2', 'P4'], 16, 10)
+Exhaustive (recursive):  (90, ['P2', 'P4'], 16, 10)
+Independent itertools:   (90, ['P2', 'P4'])
+Hand-verified optimum: {P2,P4} weight 7 value 90 ; {P2,P3} w10 v70 ; {P3,P4} w9 v80
+
+GROWTH INVESTIGATION (recursive enumeration, limit = 50% of total weight)
+   n  2^n predicted   candidates   feasible  time (s) time ratio
+  10           1024         1024        512    0.0002        nan
+  12           4096         4096       2048    0.0008       4.15
+  14          16384        16384       8266    0.0034       4.18
+  16          65536        65536      32768    0.0264       7.67
+  18         262144       262144     132288    0.1074       4.06
+  20        1048576      1048576     529952    0.2103       1.96
+  22        4194304      4194304    2117345    0.8823       4.20
+
+Fitted cost per candidate = 0.21 microseconds
+  fixed response time   1 s  ->  largest n ~ 22
+  fixed response time  10 s  ->  largest n ~ 25
+  fixed response time  60 s  ->  largest n ~ 28

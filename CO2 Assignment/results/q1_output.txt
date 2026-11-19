@@ -1,0 +1,31 @@
+n = 1000
+Dataset                     Algorithm   Comparisons  Swaps/Moves  Time(ms)
+D1 Random                   Selection        499500          995    37.404
+D1 Random                   Bubble           498680       238575    68.443
+D1 Random                   Insertion        239569       238575    33.107
+
+D2 Already sorted           Selection        499500            0    33.771
+D2 Already sorted           Bubble              999            0     0.139
+D2 Already sorted           Insertion           999            0     0.140
+
+D3 Reverse sorted           Selection        499500          500    30.034
+D3 Reverse sorted           Bubble           499500       499500    81.939
+D3 Reverse sorted           Insertion        499500       499500    67.158
+
+D4 95% sorted + new batch   Selection        499500          990    34.696
+D4 95% sorted + new batch   Bubble           498225        23029    41.722
+D4 95% sorted + new batch   Insertion         24028        23029     3.298
+
+D5 95% sorted scattered     Selection        499500           25    33.777
+D5 95% sorted scattered     Bubble           483210        13371    41.000
+D5 95% sorted scattered     Insertion         14370        13371     2.179
+
+D6 Edge: all equal scores   Selection        499500            0    34.429
+D6 Edge: all equal scores   Bubble              999            0     0.148
+D6 Edge: all equal scores   Insertion           999            0     0.163
+
+D7 Edge: min value at end   Selection        499500          999    27.932
+D7 Edge: min value at end   Bubble           499500          999    39.962
+D7 Edge: min value at end   Insertion          1997          999     0.339
+
+Theory for n=1000: n(n-1)/2 = 499500 ; n-1 = 999

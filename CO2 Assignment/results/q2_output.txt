@@ -1,0 +1,26 @@
+PART A: comparisons for successful (first / middle / last / random-avg) and unsuccessful search
+       n   first   middle     last  avg(1000 rnd)     miss  theory avg (n+1)/2
+     100       1       51      100           48.0      100                50.5
+     500       1      251      500          249.9      500               250.5
+    1000       1      501     1000          495.7     1000               500.5
+    5000       1     2501     5000         2531.2     5000              2500.5
+   10000       1     5001    10000         4941.8    10000              5000.5
+   50000       1    25001    50000        24391.4    50000             25000.5
+  100000       1    50001   100000        50080.9   100000             50000.5
+
+PART B: measured time per sequential lookup (worst case = unsuccessful), Python
+n=    100     0.0054 ms per search
+n=    500     0.0167 ms per search
+n=   1000     0.0383 ms per search
+n=   5000     0.2478 ms per search
+n=  10000     0.4670 ms per search
+n=  50000     2.4015 ms per search
+n= 100000     5.3132 ms per search
+
+PART C: total comparison-equivalents per day (avg successful search = n/2 comparisons)
+Hash index cost model: 1 probe per lookup + 1 update per issue/return (assume 2 updates per active record per day).
+scenario                                     n  searches/day    sequential  hash index
+1 hangar, low load                         200           100         10000         500
+1 hangar, busy                             200          2000        200000        2400
+20 facilities (central list)              4000         40000      80000000       48000
+20 facilities, peak                       4000        400000     800000000      408000

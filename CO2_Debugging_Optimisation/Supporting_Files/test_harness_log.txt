@@ -1,0 +1,89 @@
+--- sort_alerts ---
+[PASS] corrected insertion: sample data
+[PASS] corrected insertion: empty list
+[PASS] corrected insertion: single alert
+[PASS] corrected insertion: all equal severity keeps arrival order
+[PASS] corrected insertion: already sorted
+[PASS] corrected insertion: reverse order
+[PASS] corrected insertion: lowest severity first in input
+[PASS] corrected insertion: no alert lost or duplicated
+[PASS] optimised insertion: sample data
+[PASS] optimised insertion: empty list
+[PASS] optimised insertion: single alert
+[PASS] optimised insertion: all equal severity keeps arrival order
+[PASS] optimised insertion: already sorted
+[PASS] optimised insertion: reverse order
+[PASS] optimised insertion: lowest severity first in input
+[PASS] optimised insertion: no alert lost or duplicated
+[PASS] optimised timsort: sample data
+[PASS] optimised timsort: empty list
+[PASS] optimised timsort: single alert
+[PASS] optimised timsort: all equal severity keeps arrival order
+[PASS] optimised timsort: already sorted
+[PASS] optimised timsort: reverse order
+[PASS] optimised timsort: lowest severity first in input
+[PASS] optimised timsort: no alert lost or duplicated
+--- is_blocked ---
+[PASS] corrected list: first entry
+[PASS] corrected list: middle entry
+[PASS] corrected list: last entry
+[PASS] corrected list: absent IP
+[PASS] corrected list: prefix of a listed IP is not blocked
+[PASS] optimised list: first entry
+[PASS] optimised list: middle entry
+[PASS] optimised list: last entry
+[PASS] optimised list: absent IP
+[PASS] optimised list: prefix of a listed IP is not blocked
+[PASS] optimised set: first entry
+[PASS] optimised set: middle entry
+[PASS] optimised set: last entry
+[PASS] optimised set: absent IP
+[PASS] optimised set: prefix of a listed IP is not blocked
+[PASS] corrected: empty blocklist
+[PASS] optimised: empty list
+[PASS] optimised: empty set
+--- find_signature ---
+[PASS] corrected: sample log
+[PASS] corrected: pattern at very end
+[PASS] corrected: pattern at very start
+[PASS] corrected: pattern equals log
+[PASS] corrected: pattern longer than log
+[PASS] corrected: no occurrence
+[PASS] corrected: last-char mismatch is not a hit
+[PASS] corrected: overlapping occurrences
+[PASS] corrected: empty log
+[PASS] corrected: empty pattern
+[PASS] corrected: single-character pattern
+[PASS] optimised: sample log
+[PASS] optimised: pattern at very end
+[PASS] optimised: pattern at very start
+[PASS] optimised: pattern equals log
+[PASS] optimised: pattern longer than log
+[PASS] optimised: no occurrence
+[PASS] optimised: last-char mismatch is not a hit
+[PASS] optimised: overlapping occurrences
+[PASS] optimised: empty log
+[PASS] optimised: empty pattern
+[PASS] optimised: single-character pattern
+--- closest_logins ---
+[PASS] corrected: sample events
+[PASS] corrected: empty list
+[PASS] corrected: one event
+[PASS] corrected: two events
+[PASS] corrected: duplicate location gives distance 0
+[PASS] corrected: tie -> smallest (i, j)
+[PASS] corrected: all on one vertical line
+[PASS] optimised: sample events
+[PASS] optimised: empty list
+[PASS] optimised: one event
+[PASS] optimised: two events
+[PASS] optimised: duplicate location gives distance 0
+[PASS] optimised: tie -> smallest (i, j)
+[PASS] optimised: all on one vertical line
+--- randomised differential tests (optimised vs corrected / reference) ---
+[PASS] 500 random cases: sorting identical to stable reference
+[PASS] 500 random cases: is_blocked identical
+[PASS] 500 random cases: find_signature identical to slicing reference
+[PASS] 500 random cases: closest_logins identical (pair AND distance, incl. ties)
+
+82 passed, 0 failed

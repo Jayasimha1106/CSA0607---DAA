@@ -1,0 +1,6 @@
+"""Test datasets from the assessment (importable)."""
+alerts = [("A1", 3), ("A2", 9), ("A3", 5), ("A4", 9), ("A5", 1)]
+blocklist = ["10.0.0.5", "10.0.0.9", "172.16.4.2"]
+queries = ["10.0.0.9", "10.0.0.5", "8.8.8.8"]
+log, pattern = "FAILFAIXFAIL", "FAIL"
+events = [(2, 3), (12, 30), (40, 50), (5, 1), (12, 10), (3, 4)]  # (x, y) km

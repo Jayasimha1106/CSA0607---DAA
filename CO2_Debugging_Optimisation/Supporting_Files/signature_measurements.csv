@@ -1,0 +1,5 @@
+case,n,m,original_char_comparisons(buggy loop),optimised_char_comparisons,hits
+test log FAILFAIXFAIL / FAIL,12,4,14,18,2
+"random DNA 100,000 chars / 8-mer",100000,8,133558,133561,2
+"worst case a*100,000 / a^7 b",100000,8,799936,799944,0
+"best case b*100,000 / FAIL",100000,4,99996,99997,0

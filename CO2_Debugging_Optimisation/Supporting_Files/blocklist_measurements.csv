@@ -1,0 +1,2 @@
+b,queries,avg_comparisons_per_lookup_sequential(measured on 5000),sequential_seconds_for_all_queries,set_build_seconds,set_lookup_seconds_for_all_queries
+1000,50000,753.739,0.991,3e-05,0.0075

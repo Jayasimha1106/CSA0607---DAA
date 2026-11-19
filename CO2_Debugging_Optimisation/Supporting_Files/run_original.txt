@@ -1,0 +1,19 @@
+=== module under test: original ===
+
+[1] sort_alerts
+  input    : [('A1', 3), ('A2', 9), ('A3', 5), ('A4', 9), ('A5', 1)]
+  expected : [('A2', 9), ('A4', 9), ('A3', 5), ('A1', 3), ('A5', 1)]
+  actual   : [('A4', 9), ('A3', 5), ('A3', 5), ('A5', 1), ('A5', 1)]
+
+[2] is_blocked
+  expected : [True, True, False]
+  actual   : [False, False, False]
+
+[3] find_signature
+  log='FAILFAIXFAIL' pattern='FAIL'
+  expected : [0, 8]
+  actual   : [0, 4]
+
+[4] closest_logins
+  expected : ((0, 5), 1.4142135623730951)
+  actual   : ((0, 2), 60.440052945046304)

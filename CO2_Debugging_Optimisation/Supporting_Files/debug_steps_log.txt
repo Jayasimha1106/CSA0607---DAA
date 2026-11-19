@@ -1,0 +1,90 @@
+=== cumulative fixes: re-test after every correction ===
+start (original): {'sort_alerts': [('A4', 9), ('A3', 5), ('A3', 5), ('A5', 1), ('A5', 1)], 'is_blocked': [False, False, False], 'is_blocked([])': None, 'find_signature': [0, 4], 'closest_logins': ((0, 2), 60.440052945046304)}
+
+after D1 (sort_alerts):
+   sort_alerts      -> [('A1', 3), ('A1', 3), ('A1', 3), ('A1', 3), ('A4', 9)]
+   is_blocked       -> [False, False, False]
+   is_blocked([])   -> None
+   find_signature   -> [0, 4]
+   closest_logins   -> ((0, 2), 60.440052945046304)
+
+after D2 (sort_alerts):
+   sort_alerts      -> [('A2', 9), ('A4', 9), ('A3', 5), ('A1', 3), ('A5', 1)]
+   is_blocked       -> [False, False, False]
+   is_blocked([])   -> None
+   find_signature   -> [0, 4]
+   closest_logins   -> ((0, 2), 60.440052945046304)
+
+after D3 (is_blocked):
+   sort_alerts      -> [('A2', 9), ('A4', 9), ('A3', 5), ('A1', 3), ('A5', 1)]
+   is_blocked       -> [False, True, False]
+   is_blocked([])   -> None
+   find_signature   -> [0, 4]
+   closest_logins   -> ((0, 2), 60.440052945046304)
+
+after D4 (is_blocked):
+   sort_alerts      -> [('A2', 9), ('A4', 9), ('A3', 5), ('A1', 3), ('A5', 1)]
+   is_blocked       -> [True, True, False]
+   is_blocked([])   -> False
+   find_signature   -> [0, 4]
+   closest_logins   -> ((0, 2), 60.440052945046304)
+
+after D5 (find_signature):
+   sort_alerts      -> [('A2', 9), ('A4', 9), ('A3', 5), ('A1', 3), ('A5', 1)]
+   is_blocked       -> [True, True, False]
+   is_blocked([])   -> False
+   find_signature   -> [0, 4, 8]
+   closest_logins   -> ((0, 2), 60.440052945046304)
+
+after D6 (find_signature):
+   sort_alerts      -> [('A2', 9), ('A4', 9), ('A3', 5), ('A1', 3), ('A5', 1)]
+   is_blocked       -> [True, True, False]
+   is_blocked([])   -> False
+   find_signature   -> [0, 8]
+   closest_logins   -> ((0, 2), 60.440052945046304)
+
+after D7 (closest_logins):
+   sort_alerts      -> [('A2', 9), ('A4', 9), ('A3', 5), ('A1', 3), ('A5', 1)]
+   is_blocked       -> [True, True, False]
+   is_blocked([])   -> False
+   find_signature   -> [0, 8]
+   closest_logins   -> (None, inf)
+
+after D8 (closest_logins):
+   sort_alerts      -> [('A2', 9), ('A4', 9), ('A3', 5), ('A1', 3), ('A5', 1)]
+   is_blocked       -> [True, True, False]
+   is_blocked([])   -> False
+   find_signature   -> [0, 8]
+   closest_logins   -> ((0, 0), 0.0)
+
+after D9 (closest_logins):
+   sort_alerts      -> [('A2', 9), ('A4', 9), ('A3', 5), ('A1', 3), ('A5', 1)]
+   is_blocked       -> [True, True, False]
+   is_blocked([])   -> False
+   find_signature   -> [0, 8]
+   closest_logins   -> ((0, 5), 1.4142135623730951)
+
+=== insertion-sort trace: BUGGY (D1, D2) ===
+start: [('A1', 3), ('A2', 9), ('A3', 5), ('A4', 9), ('A5', 1)]
+i=1 key=('A2', 9)  final j=0 -> [('A2', 9), ('A2', 9), ('A3', 5), ('A4', 9), ('A5', 1)]
+i=2 key=('A3', 5)  final j=1 -> [('A2', 9), ('A3', 5), ('A3', 5), ('A4', 9), ('A5', 1)]
+i=3 key=('A4', 9)  final j=0 -> [('A4', 9), ('A3', 5), ('A3', 5), ('A3', 5), ('A5', 1)]
+i=4 key=('A5', 1)  final j=3 -> [('A4', 9), ('A3', 5), ('A3', 5), ('A5', 1), ('A5', 1)]
+
+=== insertion-sort trace: CORRECTED ===
+start: [('A1', 3), ('A2', 9), ('A3', 5), ('A4', 9), ('A5', 1)]
+i=1 key=('A2', 9)  shifts=1 insert at 0 -> [('A2', 9), ('A1', 3), ('A3', 5), ('A4', 9), ('A5', 1)]
+i=2 key=('A3', 5)  shifts=1 insert at 1 -> [('A2', 9), ('A3', 5), ('A1', 3), ('A4', 9), ('A5', 1)]
+i=3 key=('A4', 9)  shifts=2 insert at 1 -> [('A2', 9), ('A4', 9), ('A3', 5), ('A1', 3), ('A5', 1)]
+i=4 key=('A5', 1)  shifts=0 insert at 4 -> [('A2', 9), ('A4', 9), ('A3', 5), ('A1', 3), ('A5', 1)]
+
+=== alignment table  log='FAILFAIXFAIL'  pattern='FAIL' ===
+i=0: F=F A=A I=I L=L          true match=True  original loop: visited; original reports hit=True
+i=1: A!F                      true match=False original loop: visited; original reports hit=False
+i=2: I!F                      true match=False original loop: visited; original reports hit=False
+i=3: L!F                      true match=False original loop: visited; original reports hit=False
+i=4: F=F A=A I=I X!L          true match=False original loop: visited; original reports hit=True
+i=5: A!F                      true match=False original loop: visited; original reports hit=False
+i=6: I!F                      true match=False original loop: visited; original reports hit=False
+i=7: X!F                      true match=False original loop: visited; original reports hit=False
+i=8: F=F A=A I=I L=L          true match=True  original loop: NEVER visited (range(n-m)); original reports hit=False

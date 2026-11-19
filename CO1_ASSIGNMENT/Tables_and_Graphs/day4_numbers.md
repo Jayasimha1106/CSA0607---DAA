@@ -1,0 +1,4 @@
+- Break-even vs linear (n=1e6): sort+binary after 100 searches; hash after 36 searches
+- Searches per day at 50,000/h: 1,200,000; per second: 13.9
+- Daily search CPU time: linear 28,494 s (7.9 h); binary 3.64 s (+2.38 s sort); hash 0.75 s (+0.86 s build)
+- Linear CPU utilisation at 13.9 req/s: 33% of one core; binary 0.0042%; hash 0.0009%

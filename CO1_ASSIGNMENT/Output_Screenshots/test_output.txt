@@ -1,0 +1,16 @@
+PASS  empty database
+PASS  single record, present
+PASS  single record, absent
+PASS  first element (linear best case)
+PASS  last element (linear worst case)
+PASS  middle element (binary best case)
+PASS  absent key below range
+PASS  absent key above range
+PASS  random present key
+PASS  randomized agreement, n=1
+PASS  randomized agreement, n=2
+PASS  randomized agreement, n=3
+PASS  randomized agreement, n=10
+PASS  randomized agreement, n=100
+PASS  randomized agreement, n=1000
+ALL TESTS PASSED

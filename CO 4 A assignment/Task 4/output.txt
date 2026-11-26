@@ -1,0 +1,31 @@
+=== Task 4.2 Failing input: Text='abcd', Dictionary=['bcd'] ===
+  i=1: no substring ending at 1 is in dictionary -> DP[1]=FALSE
+  i=2: no substring ending at 2 is in dictionary -> DP[2]=FALSE
+  i=3: no substring ending at 3 is in dictionary -> DP[3]=FALSE
+  i=4: j=1 substring 'bcd' in dictionary -> DP[4]=TRUE   (but DP[1]=False)
+Faulty result : True | DP = [True, False, False, False, True]
+Correct answer: False (the leading letter 'a' is not a dictionary word)
+
+=== Task 4.3 Repaired algorithm on the same input ===
+  i=1: no j with DP[j]=TRUE and word in dictionary -> DP[1]=FALSE
+  i=2: no j with DP[j]=TRUE and word in dictionary -> DP[2]=FALSE
+  i=3: no j with DP[j]=TRUE and word in dictionary -> DP[3]=FALSE
+  i=4: no j with DP[j]=TRUE and word in dictionary -> DP[4]=FALSE
+Fixed result  : False | DP = [True, False, False, False, False]
+
+=== Task 4.4 Regression: Text='leetcode', Dictionary=['code', 'leet'] ===
+Original algorithm: True [True, False, False, False, True, False, False, False, True]
+  i=1: no j with DP[j]=TRUE and word in dictionary -> DP[1]=FALSE
+  i=2: no j with DP[j]=TRUE and word in dictionary -> DP[2]=FALSE
+  i=3: no j with DP[j]=TRUE and word in dictionary -> DP[3]=FALSE
+  i=4: j=0 DP[0]=TRUE and 'leet' in dictionary -> DP[4]=TRUE
+  i=5: no j with DP[j]=TRUE and word in dictionary -> DP[5]=FALSE
+  i=6: no j with DP[j]=TRUE and word in dictionary -> DP[6]=FALSE
+  i=7: no j with DP[j]=TRUE and word in dictionary -> DP[7]=FALSE
+  i=8: j=4 DP[4]=TRUE and 'code' in dictionary -> DP[8]=TRUE
+Fixed algorithm   : True [True, False, False, False, True, False, False, False, True]
+
+=== Randomised check (alphabet {a,b}) ===
+Fixed algorithm matches the reference on 2000/2000 inputs; faulty algorithm wrong on 517.
+
+All Task 4 tests passed.

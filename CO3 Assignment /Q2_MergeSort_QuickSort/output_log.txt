@@ -1,0 +1,33 @@
+=== Q2: Merge Sort vs Quick Sort (pivot = last element) ===
+     n     input |    QS cmp QS depth    QS ms |   MS cmp MS depth   MS ms
+   127  balanced |       642        7     0.10 |      506        8    0.15
+   127    random |       756       11     0.14 |      728        8    0.25
+   127    sorted |      8001      127     0.57 |      441        8    0.14
+   127   reverse |      8001      127     0.41 |      447        8    0.14
+
+   255  balanced |      1538        8     0.15 |     1154        9    0.45
+   255    random |      2056       14     0.27 |     1706        9    0.42
+   255    sorted |     32385      255     1.62 |     1016        9    0.31
+   255   reverse |     32385      255     1.51 |     1023        9    0.34
+
+   511  balanced |      3586        9     0.32 |     2576       10    0.76
+   511    random |      4687       20     0.58 |     3947       10    1.08
+   511    sorted |    130305      511     6.77 |     2295       10    0.57
+   511   reverse |    130305      511     7.30 |     2303       10    0.64
+
+  1023  balanced |      8194       10     0.67 |     5672       11    1.49
+  1023    random |     10680       23     1.11 |     8960       11    2.19
+  1023    sorted |    522753     1023    25.63 |     5110       11    1.45
+  1023   reverse |    522753     1023    21.05 |     5119       11    1.28
+
+  2047  balanced |     18434       11     3.58 |    12370       12    3.04
+  2047    random |     24830       24     2.16 |    19955       12    4.10
+  2047    sorted |   2094081     2047   111.66 |    11253       12    2.85
+  2047   reverse |   2094081     2047   103.86 |    11263       12    5.30
+
+Top partition sizes (left,right) for n=1023, balanced: [(511, 511), (255, 255), (127, 127), (127, 127), (255, 255), (127, 127), (127, 127)]
+Top partition sizes (left,right) for n=1023, sorted (worst): [(1022, 0), (1021, 0), (1020, 0)]
+
+Theory: balanced -> depth ~ log2(n+1) = 10, comparisons ~ n log n.
+        sorted   -> split (n-1, 0) every level: depth n, comparisons n(n-1)/2 = 522753
+90:10 split -> depth ~ log(n)/log(10/9) = 65.8 for n=1023 (still O(n log n), larger constant)

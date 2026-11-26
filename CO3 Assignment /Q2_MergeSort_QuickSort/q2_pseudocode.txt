@@ -1,0 +1,30 @@
+MERGE SORT
+MergeSort(A):
+    if |A| <= 1: return A
+    m <- |A| / 2
+    L <- MergeSort(A[0..m-1]); R <- MergeSort(A[m..end])
+    return Merge(L, R)            // linear merge, <= |A|-1 comparisons
+Recurrence: T(n) = 2T(n/2) + O(n) -> O(n log n) ALWAYS; tree height = ceil(log2 n) + 1 (independent of data)
+
+QUICK SORT (pivot = last element)
+QuickSort(A):
+    if |A| <= 1: return A
+    p <- A[last]
+    Left  <- {x in A[0..last-1] : x <  p}
+    Right <- {x in A[0..last-1] : x >= p}
+    return QuickSort(Left) + [p] + QuickSort(Right)
+Recurrence: T(n) = T(k) + T(n-k-1) + O(n) where k = size of Left
+  balanced k = n/2      -> O(n log n), height log n
+  worst    k = 0 or n-1 -> T(n) = T(n-1) + n = O(n^2), height n (e.g. sorted input with last pivot)
+  90:10 split           -> height log_{10/9} n, still O(n log n)
+
+Input design
+  Balanced  : arrange keys recursively as  balanced(left half) + balanced(right half) + [median]
+  Unbalanced: already sorted (or reverse sorted) array with last-element pivot
+
+JOINT DESIGN QUESTION (information needed before choosing):
+  - Is the data nearly sorted / has structure, or adversarial/untrusted? (pivot predictability)
+  - Is a worst-case guarantee or stability required?  (Merge Sort: stable, guaranteed n log n)
+  - Memory limits? (Merge Sort needs O(n) extra; Quick Sort in-place O(log n) stack)
+  - Input size, data type (primitives vs objects: comparison cost, cache behaviour), need for parallelism
+  - Mitigation if Quick Sort chosen: randomized / median-of-three pivot, or introsort fallback.

@@ -1,0 +1,27 @@
+=== Q5: Correctness ===
+200 random trials: D&C distance == brute-force distance
+
+=== Q5: Distance computations and time (random uniform points) ===
+      n   brute dist     n(n-1)/2   D&C dist   n log2 n   brute ms   D&C ms
+     10           45           45         13         33       0.03     0.05
+     50         1225         1225         67        282       0.41     0.24
+    100         4950         4950        134        664       1.59     0.52
+    200        19900        19900        277       1529       6.34     1.05
+    500       124750       124750        534       4483      39.13     3.01
+   1000       499500       499500       1113       9966     164.88     6.79
+   2000      1999000      1999000       2286      21932     669.73    12.40
+   4000      7998000      7998000       4628      47863    1717.16    19.46
+
+=== Q5: Other data distributions, n=1000 ===
+    random: n= 1000 brute= 499500 D&C=  1140
+      line: n= 1000 brute= 499500 D&C=   536
+   cluster: n=  949 brute= 449826 D&C=   689
+
+Time crossover (small n): 
+  n=   8: brute      6.4 us   D&C     11.7 us   -> brute faster
+  n=  16: brute     26.1 us   D&C     31.9 us   -> brute faster
+  n=  24: brute     56.0 us   D&C     41.2 us   -> D&C faster
+  n=  32: brute     96.6 us   D&C     82.7 us   -> D&C faster
+  n=  48: brute    249.3 us   D&C    106.9 us   -> D&C faster
+  n=  64: brute    373.7 us   D&C    186.2 us   -> D&C faster
+  n= 100: brute   1017.9 us   D&C    264.3 us   -> D&C faster

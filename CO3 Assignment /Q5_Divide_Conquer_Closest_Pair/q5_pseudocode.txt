@@ -1,0 +1,24 @@
+BRUTE FORCE (from CO2): compare all n(n-1)/2 pairs -> Theta(n^2) distance computations.
+
+CLOSEST-PAIR (Divide & Conquer)
+ClosestPair(P):
+    Px <- P sorted by x ;  Py <- P sorted by y            // sorted ONCE: O(n log n)
+    return Rec(Px, Py)
+
+Rec(Px, Py):
+    if |Px| <= 3: return BruteForce(Px)                    // base case
+    mid <- |Px|/2 ; midX <- Px[mid].x                      // vertical dividing line
+    Lx,Rx <- left/right halves of Px ; Ly,Ry <- same points kept in y-order (linear split of Py)
+    (dL, pairL) <- Rec(Lx, Ly) ; (dR, pairR) <- Rec(Rx, Ry)  // each call returns (min distance, closest pair)
+    d <- min(dL, dR)
+    Strip <- { p in Py : |p.x - midX| < d }                // already y-sorted
+    for each p in Strip: compare with the next points q in Strip while q.y - p.y < d (at most 7 points)
+        update d and best pair if dist(p,q) < d
+    return (d, best pair)
+
+Why the boundary needs special treatment: the closest pair may have one point in each half; neither recursive
+call sees that pair. Only points within d of the line can beat d.
+Why the strip is cheap: in a d x 2d rectangle straddling the line, every pair on the same side is >= d apart,
+so at most 8 points fit (packing argument) -> each point is compared with at most 7 successors in y-order,
+not with all other points. Strip work is O(n).
+Recurrence: T(n) = 2T(n/2) + O(n) -> O(n log n)   (vs O(n^2) brute force)

@@ -1,0 +1,34 @@
+Q1 PART A - MAX/MIN (Divide and Conquer)
+MaxMin(A, lo, hi):
+    if lo == hi: return (A[lo], A[lo])
+    if hi == lo + 1:                              // 1 comparison
+        if A[lo] < A[hi]: return (A[lo], A[hi]) else return (A[hi], A[lo])
+    mid <- floor((lo+hi)/2)
+    (min1,max1) <- MaxMin(A, lo, mid)
+    (min2,max2) <- MaxMin(A, mid+1, hi)
+    return (smaller(min1,min2), larger(max1,max2))   // 2 comparisons
+
+Each subproblem returns the pair (min, max) of its sub-array.
+Recurrence: T(n) = 2T(n/2) + 2, T(2) = 1, T(1) = 0
+Solution (n = 2^k): n/2 base pairs x 1 comparison + 2 x (n/2 - 1) combine comparisons
+                    = n/2 + n - 2 = 3n/2 - 2
+Note: for n not a power of 2 the split may be uneven and the count can exceed ceil(3n/2)-2 by a few
+      (e.g. n=10 gives 14, optimum is 13) - this is the 'discrepancy' Student B explains.
+Independent scans: 2(n-1) comparisons. Saving = n/2 (about 25%).
+
+Decomposition tree (n=8):   [0..7] -> [0..3],[4..7] -> [0,1],[2,3],[4,5],[6,7]
+
+Q1 PART B - BINARY SEARCH
+BinarySearch(A, target):                     // A sorted ascending
+    lo <- 0; hi <- n-1
+    while lo <= hi:
+        mid <- floor((lo+hi)/2)
+        if A[mid] == target: return mid
+        else if A[mid] < target: lo <- mid+1     // discard left half
+        else:                    hi <- mid-1     // discard right half
+    return NOT_FOUND
+
+Elimination: A sorted, so if A[mid] < target all indices <= mid hold values <= A[mid] < target
+             -> target cannot be there (symmetric for the right side).
+Termination: space halves each step; stops at a match or when lo > hi (empty space).
+Recurrence : T(n) = T(n/2) + 1  ->  floor(log2 n) + 1 = O(log n)

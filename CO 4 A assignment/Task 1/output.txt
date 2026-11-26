@@ -1,0 +1,39 @@
+
+=== Test 1: partial last package | capacity = 50 ===
+Pkg    W    V    V/W  fraction  remaining   total
+A     10   60   6.00         1         40   60.00
+B     20  100   5.00         1         20  160.00
+C     30  120   4.00       2/3          0  240.00
+Plan  : [('A', '1'), ('B', '1'), ('C', '2/3')]
+Total value = 240.00, unused capacity = 0.00
+Compare: highest-value-first = 220.0 | lightest-first = 240.0
+
+=== Test 2: exact fit | capacity = 30 ===
+Pkg    W    V    V/W  fraction  remaining   total
+A     10   60   6.00         1         20   60.00
+B     20  100   5.00         1          0  160.00
+Plan  : [('A', '1'), ('B', '1')]
+Total value = 160.00, unused capacity = 0.00
+
+=== Test 3: capacity 0 | capacity = 0 ===
+Pkg    W    V    V/W  fraction  remaining   total
+Plan  : []
+Total value = 0.00, unused capacity = 0.00
+
+=== Test 4: capacity exceeds total weight | capacity = 100 ===
+Pkg    W    V    V/W  fraction  remaining   total
+A     10   60   6.00         1         90   60.00
+B     20  100   5.00         1         70  160.00
+C     30  120   4.00         1         40  280.00
+Plan  : [('A', '1'), ('B', '1'), ('C', '1')]
+Total value = 280.00, unused capacity = 40.00
+
+=== Test 5: equal ratios (tie) | capacity = 7 ===
+Pkg    W    V    V/W  fraction  remaining   total
+X      4    8   2.00         1          3    8.00
+Y      2    4   2.00         1          1   12.00
+Z      6   12   2.00       1/6          0   14.00
+Plan  : [('X', '1'), ('Y', '1'), ('Z', '1/6')]
+Total value = 14.00, unused capacity = 0.00
+
+All Task 1 tests passed.

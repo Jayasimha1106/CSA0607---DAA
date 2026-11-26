@@ -1,0 +1,14 @@
+=== Q7: Maximum Subarray - D&C design ===
+All 508 correctness tests passed (D&C == brute force == Kadane), incl. all-negative, single element, zeros.
+
+      n  brute ops n(n+1)/2  D&C ops (5(n-1))  brute ms   D&C ms  Kadane ms
+     16                 136                75      0.01     0.02      0.005
+     64                2080               315      0.16     0.06      0.019
+    256               32896              1275      2.22     0.18      0.061
+   1024              524800              5115     39.49     0.78      0.255
+   2048             2098176             10235    141.81     1.35      0.445
+   4096             8390656             20475    795.02     2.99      0.934
+   8192            33558528             40955   2634.06     6.66      2.003
+
+Recurrence T(n)=2T(n/2)+O(1) -> Theta(n). Observed ops = 5(n-1) exactly.
+Note: Kadane's O(n) single-scan DP is even simpler; D&C is still valuable for parallelism and as a D&C exercise.

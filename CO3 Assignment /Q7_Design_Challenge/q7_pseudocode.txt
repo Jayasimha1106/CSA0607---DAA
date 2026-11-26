@@ -1,0 +1,44 @@
+Q7 - DESIGN DIVIDE AND CONQUER FROM FIRST PRINCIPLES
+Problem chosen (jointly): MAXIMUM SUBARRAY SUM  (largest sum of a contiguous, non-empty block of an integer array)
+
+STAGE 1 - INDEPENDENT PROPOSALS: see ../Design_Records/Q7_stage1_stage2_template.md  (to be written by each student BEFORE discussing)
+
+STAGE 3 - JOINT FINAL DESIGN
+Decomposition   : split A[lo..hi] at mid into A[lo..mid] and A[mid+1..hi]
+Subproblems     : two independent sub-arrays of half size
+Base case       : lo == hi -> (total=x, prefix=x, suffix=x, best=x)   (non-empty subarray, so all-negative input works)
+Information returned (4 values): total sum, best prefix sum, best suffix sum, best subarray sum
+Combine         :
+    total  = L.total + R.total
+    prefix = max(L.prefix, L.total + R.prefix)
+    suffix = max(R.suffix, R.total + L.suffix)
+    best   = max(L.best, R.best, L.suffix + R.prefix)      // the third term is the subarray crossing the midpoint
+
+MaxSub(A, lo, hi):
+    if lo == hi: return (A[lo], A[lo], A[lo], A[lo])
+    mid <- (lo+hi)/2
+    L <- MaxSub(A, lo, mid) ; R <- MaxSub(A, mid+1, hi)
+    return Combine(L, R)
+
+STAGE 4A - MATHEMATICAL VALIDATION (Student A)
+    T(n) = 2T(n/2) + c   (combine is constant time because it reuses returned prefix/suffix instead of rescanning)
+    2T(n/2): the two half-size subproblems; c: 1 addition + 4 comparisons (5 operations).
+    Recursion tree: level i has 2^i nodes each costing c -> total c(1 + 2 + ... + n) = c(2n-1) = Theta(n)  (Master theorem a=2,b=2,f=O(1): case 1)
+    Variant: if the crossing term is computed by scanning outward from mid, f(n)=O(n) -> T(n)=2T(n/2)+O(n)=O(n log n).
+    Baseline brute force: n(n+1)/2 subarrays -> Theta(n^2).
+
+STAGE 4B - EXPERIMENTAL VALIDATION (Student B): see Implementation_Code/q7_max_subarray.py and Output_Screenshots
+
+STAGE 5 - CROSS-DEFENCE (prepare answers)
+    A: "Observed D&C operation count equals 5(n-1) for every n and the output matched brute force and Kadane on 500+ random and edge-case tests; timing grows ~linearly (x2 per doubling) versus x4 for brute force."
+    B: "Splitting in half gives two subproblems of size n/2 (the 2T(n/2)); because each subproblem returns total/prefix/suffix/best, the combine step is O(1) (the +c)."
+
+STAGE 6 - JOINT EVALUATION
+    Why suitable: the answer of the whole = answer of halves OR a block crossing the boundary; the crossing block is composed of
+        a suffix of the left half and a prefix of the right half, so a small summary of each half is enough (subproblems independent, combine cheap).
+    Work reduced : repeated re-summing of overlapping subarrays (n^2 -> n).
+    Extra costs  : recursion calls / stack O(log n), tuple allocation, constant-factor overhead (Kadane's loop is faster in practice).
+    Not appropriate when: subproblems overlap heavily (use DP), the combine step needs the whole data again (no cheap summary), the
+        input is tiny (overhead dominates), the problem has no decomposable structure, or recursion depth/memory is constrained.
+    Characteristics to look for: (1) decomposable into independent smaller instances of the same problem, (2) cheap combine,
+        (3) balanced division, (4) small base case, (5) a compact summary that can be returned from subproblems, (6) benefit from parallelism.

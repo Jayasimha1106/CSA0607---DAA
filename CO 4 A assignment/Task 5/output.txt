@@ -1,0 +1,78 @@
+=== Task 5.1 Dijkstra from A ===
+  EXTRACT A (dist=0) -> finalised
+    relax A->B (w=4): INF -> 4, pred[B]=A
+    relax A->C (w=7): INF -> 7, pred[C]=A
+  EXTRACT B (dist=4) -> finalised
+    relax B->C (w=2): 7 -> 6, pred[C]=B
+    relax B->D (w=6): INF -> 10, pred[D]=B
+  EXTRACT C (dist=6) -> finalised
+    relax C->D (w=1): 10 -> 7, pred[D]=C
+    relax C->E (w=8): INF -> 14, pred[E]=C
+  EXTRACT D (dist=7) -> finalised
+    relax D->E (w=3): 14 -> 10, pred[E]=D
+  EXTRACT E (dist=10) -> finalised
+  dist[A]=0  pred=None  path=A
+  dist[B]=4  pred=A  path=A->B
+  dist[C]=6  pred=B  path=A->B->C
+  dist[D]=7  pred=C  path=A->B->C->D
+  dist[E]=10  pred=D  path=A->B->C->D->E
+
+=== Task 5.2 Bellman-Ford from A (same graph) ===
+  pass 1: A=0, B=4, C=6, D=7, E=10
+  pass 2: A=0, B=4, C=6, D=7, E=10
+  negative cycle reachable: False
+
+  -- Negative edge where Dijkstra fails: A->B 2, A->C 3, C->B -2 --
+  Dijkstra    dist[B] = 2 (WRONG)
+  Bellman-Ford dist[B] = 1 (correct), negative cycle: False
+
+  -- Negative cycle: A->B 1, B->C -2, C->B 1 (cycle B->C->B weight -1) --
+  negative cycle detected: True
+
+=== Task 5.3 Floyd-Warshall (all pairs) ===
+  D(0): direct edges only
+            A    B    C    D    E
+      A     0    4    7  INF  INF
+      B   INF    0    2    6  INF
+      C   INF  INF    0    1    8
+      D   INF  INF  INF    0    3
+      E   INF  INF  INF  INF    0
+  D(1): intermediates allowed = {A}
+            A    B    C    D    E
+      A     0    4    7  INF  INF
+      B   INF    0    2    6  INF
+      C   INF  INF    0    1    8
+      D   INF  INF  INF    0    3
+      E   INF  INF  INF  INF    0
+  D(2): intermediates allowed = {A, B}
+            A    B    C    D    E
+      A     0    4    6   10  INF
+      B   INF    0    2    6  INF
+      C   INF  INF    0    1    8
+      D   INF  INF  INF    0    3
+      E   INF  INF  INF  INF    0
+  D(3): intermediates allowed = {A, B, C}
+            A    B    C    D    E
+      A     0    4    6    7   14
+      B   INF    0    2    3   10
+      C   INF  INF    0    1    8
+      D   INF  INF  INF    0    3
+      E   INF  INF  INF  INF    0
+  D(4): intermediates allowed = {A, B, C, D}
+            A    B    C    D    E
+      A     0    4    6    7   10
+      B   INF    0    2    3    6
+      C   INF  INF    0    1    4
+      D   INF  INF  INF    0    3
+      E   INF  INF  INF  INF    0
+  D(5): intermediates allowed = {A, B, C, D, E}
+            A    B    C    D    E
+      A     0    4    6    7   10
+      B   INF    0    2    3    6
+      C   INF  INF    0    1    4
+      D   INF  INF  INF    0    3
+      E   INF  INF  INF  INF    0
+
+  Floyd result equals Dijkstra run from every source.
+
+All Task 5 tests passed.

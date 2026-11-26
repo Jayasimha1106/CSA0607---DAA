@@ -1,0 +1,31 @@
+=== Q3: Correctness ===
+All checks passed (vs Python's built-in x*y).
+
+=== Q3: Multiplication counts (single-digit mults, cutoff = 1 digit) ===
+ digits  school n^2  karatsuba   n^1.585  ratio K/S
+      2           4          5         3      1.250
+      4          16         15         9      0.938
+      8          64         53        27      0.828
+     16         256        149        81      0.582
+     32        1024        447       243      0.437
+     64        4096       1431       729      0.349
+    128       16384       4317      2187      0.263
+    256       65536      12701      6562      0.194
+    512      262144      38239     19688      0.146
+
+=== Q3: Crossover timing (best of 5 runs, ms, pure-Python digit lists) ===
+ digits    school  karat(cut=1)  karat(cut=16)         winner
+      4     0.002         0.043          0.003         school
+      8     0.006         0.115          0.007         school
+     12     0.013         0.257          0.014         school
+     16     0.034         0.446          0.023         hybrid
+     24     0.051         0.889          0.060         school
+     32     0.085         1.177          0.104         school
+     48     0.208         2.632          0.230         school
+     64     0.383         3.719          0.364         hybrid
+     96     0.823         7.792          0.739         hybrid
+    128     1.501        13.171          1.281         hybrid
+    192     3.429        25.340          2.397         hybrid
+    256     6.268        41.985          3.900         hybrid
+    512    29.502       124.002         12.278         hybrid
+   1024   120.341       364.645         37.954         hybrid

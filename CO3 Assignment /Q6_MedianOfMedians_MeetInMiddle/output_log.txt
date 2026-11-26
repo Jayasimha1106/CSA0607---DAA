@@ -1,0 +1,21 @@
+=== Q6A: Median of Medians vs QuickSelect (find median) ===
+      n    MoM cmp  QS-random  QS-first pivot (sorted input)
+    100        814        253                           5049
+    500       4769       2056                         125249
+   1000       9634       3785                         500499
+   2000      18924       5326                        2000999
+   3000      26643      11676                        4501499
+MoM stays ~linear (<= ~22n); first-element pivot on sorted input is quadratic (~n^2/2).
+Randomised QuickSelect, 300 runs, n=1000: worst run used 8650 cmp (average-case ~3.4n, but not bounded).
+
+=== Q6B: Meet-in-the-Middle Subset Sum ===
+   n          2^n   MITM states (2*2^(n/2))  extra memory (ints)  brute ms  MITM ms
+  10         1024                        64                   64       0.8      0.0
+  16        65536                       512                  512      98.7      0.2
+  20      1048576                      2048                 2048     675.3      0.5
+  22      4194304                      4096                 4096         -      0.5
+  24     16777216                      8192                 8192         -      0.7
+  40 1099511627776                   2097152              2097152         -    310.6
+  50 1125899906842624                  67108864             67108864         -  18154.0
+n > 20 brute force is skipped (too slow); MITM uses O(2^(n/2)) time AND memory (time-memory trade-off).
+Sanity [3,34,4,12,5,2] target 9: True | target 30: False

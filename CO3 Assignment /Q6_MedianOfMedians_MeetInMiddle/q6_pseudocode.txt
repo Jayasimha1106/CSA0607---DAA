@@ -1,0 +1,24 @@
+MEDIAN OF MEDIANS SELECT(A, k)
+    if |A| <= 5: sort, return k-th
+    split A into groups of 5; sort each; M <- list of group medians
+    p <- Select(M, ceil(|M|/2))                 // pivot = median of the medians (recursive)
+    L <- {x<p}; E <- {x=p}; H <- {x>p}
+    if k <= |L|: return Select(L, k)
+    if k <= |L|+|E|: return p
+    return Select(H, k - |L| - |E|)
+Pivot guarantee: at least 3n/10 elements are <= p and at least 3n/10 are >= p, so each side has <= 7n/10 elements.
+Recurrence: T(n) = T(n/5) + T(7n/10) + O(n); since 1/5 + 7/10 = 9/10 < 1 -> T(n) = O(n) WORST CASE.
+QuickSelect with first/last pivot: sorted input gives splits (n-1,0) -> O(n^2). Random pivot: expected O(n) but
+a bad pivot sequence is still possible (probability small, not zero). Pivot quality is central because the
+recursion continues on the larger side: balanced shrinkage gives a geometric series (linear), poor pivots give n + (n-1) + ... .
+
+MEET IN THE MIDDLE SUBSET SUM(items, target)
+    split items into halves H1, H2 (n/2 each)
+    S1 <- all 2^(n/2) subset sums of H1 ; S2 <- sorted all 2^(n/2) subset sums of H2
+    for each s in S1: binary search (target - s) in S2 -> found: YES
+    return NO
+Time O(2^(n/2) * n) vs O(2^n * n) enumeration; Memory O(2^(n/2)) vs O(n) -> time-memory trade-off.
+Search space: 2^(n/2) + 2^(n/2) = 2^(n/2+1) states instead of 2^n.
+Why work drops despite storage: sum of two exponentials of half size is exponentially smaller than one of full size
+(n=40: ~2 million vs ~1 trillion); if memory is reduced substantially (e.g. n=60 needs 2^30 stored sums) the method
+becomes infeasible and one needs to split in more parts / use DP over sum values / pruning.

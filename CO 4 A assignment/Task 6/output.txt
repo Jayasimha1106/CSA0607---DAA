@@ -1,0 +1,46 @@
+=== Stage 5 Desk-check: given dataset ===
+k  job    s   f   v  p(k)   include=v+OPT[p]  exclude  OPT[k]  decision
+1  J1     1   3  20     0            20+0=20        0      20  INCLUDE
+2  J2     2   5  50     0            50+0=50       20      50  INCLUDE
+3  J3     4   6  30     1           30+20=50       50      50  EXCLUDE
+4  J4     6   8  40     3           40+50=90       50      90  INCLUDE
+5  J5     5   9  60     2          60+50=110       90     110  INCLUDE
+6  J6     8  10  30     4          30+90=120      110     120  INCLUDE
+7  J7     9  11  50     5         50+110=160      120     160  INCLUDE
+8  J8    11  13  40     7         40+160=200      160     200  INCLUDE
+OPT array: [0, 20, 50, 50, 90, 110, 120, 160, 200]
+p array  : [0, 0, 1, 3, 2, 4, 5, 7]
+Selected jobs: ['J2', 'J5', 'J7', 'J8'] | Total energy saving = 200
+For comparison: greedy highest-value = (200, ['J5', 'J2', 'J7', 'J8']) | greedy earliest-finish = (160, ['J1', 'J3', 'J4', 'J6', 'J8'])
+
+=== Stage 6 Adversarial Test A: long high-value job vs three shorter jobs ===
+k  job    s   f   v  p(k)   include=v+OPT[p]  exclude  OPT[k]  decision
+1  S1     0   3  20     0            20+0=20        0      20  INCLUDE
+2  S2     3   6  20     1           20+20=40       20      40  INCLUDE
+3  M      2   8  15     0            15+0=15       40      40  EXCLUDE
+4  L      0  10  50     0            50+0=50       40      50  INCLUDE
+5  S3     6  10  20     2           20+40=60       50      60  INCLUDE
+OPT array: [0, 20, 40, 40, 50, 60]
+p array  : [0, 1, 0, 0, 2]
+DP result: 60 ['S1', 'S2', 'S3'] | brute force: 60
+Greedy highest-value: (50, ['L']) -> suboptimal
+
+=== Stage 6 Adversarial Test B: earliest-finish trap ===
+k  job    s   f   v  p(k)   include=v+OPT[p]  exclude  OPT[k]  decision
+1  E      0   2   1     0              1+0=1        0       1  INCLUDE
+2  F      2   4   2     1              2+1=3        1       3  INCLUDE
+3  G      4   6   2     2              2+3=5        3       5  INCLUDE
+4  I      6   8   2     3              2+5=7        5       7  INCLUDE
+5  H      1  10 100     0          100+0=100        7     100  INCLUDE
+OPT array: [0, 1, 3, 5, 7, 100]
+p array  : [0, 1, 2, 3, 0]
+DP result: 100 ['H'] | brute force: 100
+Greedy earliest-finish: (7, ['E', 'F', 'G', 'I']) -> suboptimal
+
+=== Boundary tests ===
+touching jobs [0,2],[2,4]    best=11 selected=['a', 'b']
+identical interval           best=9 selected=['b']
+single job                   best=5 selected=['a']
+500 random instances: DP == brute force, selected set non-overlapping
+
+All Task 6 tests passed.

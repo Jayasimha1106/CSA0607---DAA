@@ -1,0 +1,32 @@
+=== Q1 Part A: Divide & Conquer Max/Min ===
+Sanity (min,max) of [5,2,9,1,7,3,8]: (1, 9)
+     n  D&C obs Predicted   3n/2-2  Naive 2(n-1)  Diff
+     2        1         1      1.0             2     0
+     4        4         4      4.0             6     0
+     8       10        10     10.0            14     0
+    16       22        22     22.0            30     0
+    64       94        94     94.0           126     0
+   256      382       382    382.0           510     0
+  1024     1534      1534   1534.0          2046     0
+  4096     6142      6142   6142.0          8190     0
+    10       14        14     13.0            18     0
+   100      162       162    148.0           198     0
+  1000     1510      1510   1498.0          1998     0
+  5000     7950      7950   7498.0          9998     0
+
+Data-independence check (n=1024):
+     random: 1534 comparisons
+     sorted: 1534 comparisons
+    reverse: 1534 comparisons
+  all-equal: 1534 comparisons
+
+=== Q1 Part B: Binary Search ===
+       n  succ avg  succ max  unsucc max  floor(log2n)+1
+      16      3.38         5           5               5
+     100      5.80         7           7               7
+    1000      8.99        10          10              10
+   10000     12.36        14          14              14
+  100000     15.68        17          17              17
+ 1000000     18.98        20          20              20
+
+Trace a=0,2,..,38: target 26 -> (13, 5) | target 27 -> (-1, 5)

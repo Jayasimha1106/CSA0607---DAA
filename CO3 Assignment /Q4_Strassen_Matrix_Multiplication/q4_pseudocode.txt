@@ -1,0 +1,32 @@
+CONVENTIONAL BLOCK MULTIPLICATION (n x n, split into four n/2 x n/2 blocks)
+    C11 = A11B11 + A12B21     C12 = A11B12 + A12B22
+    C21 = A21B11 + A22B21     C22 = A21B12 + A22B22     -> 8 block multiplications, T(n)=8T(n/2)+O(n^2)=O(n^3)
+
+STRASSEN: 7 block products
+    M1 = (A11 + A22)(B11 + B22)      M5 = (A11 + A12) B22
+    M2 = (A21 + A22) B11             M6 = (A21 - A11)(B11 + B12)
+    M3 = A11 (B12 - B22)             M7 = (A12 - A22)(B21 + B22)
+    M4 = A22 (B21 - B11)
+    C11 = M1 + M4 - M5 + M7          C12 = M3 + M5
+    C21 = M2 + M4                    C22 = M1 - M2 + M3 + M6
+
+Correctness check (example C12): M3 + M5 = A11B12 - A11B22 + A11B22 + A12B22 = A11B12 + A12B22 (OK).
+C21: M2 + M4 = A21B11 + A22B11 + A22B21 - A22B11 = A21B11 + A22B21 (OK).
+C22: M1-M2+M3+M6 = A11B11+A11B22+A22B11+A22B22 - A21B11 - A22B11 + A11B12 - A11B22 + A21B11 + A21B12 - A11B11 - A11B12
+                 = A22B22 + A21B12 (OK).    C11 expands to A11B11 + A12B21 (OK).
+
+Strassen(A, B, n):
+    if n <= cutoff: return A*B (conventional)
+    split A,B into 4 blocks; compute 10 block additions/subtractions; 7 recursive calls; 8 add/sub to form C
+    assemble C
+Strassen_Any(A, B): pad to next power of two p with zero rows/columns, run Strassen, crop top-left n x n.
+    (zero padding does not change the product; cost: up to ~8x more multiplications just below a power of two)
+
+Recurrence: T(n) = 7T(n/2) + 18 (n/2)^2 -> Theta(n^log2 7) = Theta(n^2.807)
+
+JOINT ENGINEERING DECISION - use conventional multiplication when:
+  * n is small / below the measured crossover (additions, temporaries, recursion dominate)
+  * n is not close to a power of two (padding waste) or matrices are rectangular / sparse / banded
+  * memory or cache is limited (Strassen allocates many temporaries; poor cache locality)
+  * floating-point accuracy matters (Strassen has weaker numerical stability)
+  * an optimized BLAS/GPU routine exists (hardware-tuned O(n^3) usually beats a naive Strassen)

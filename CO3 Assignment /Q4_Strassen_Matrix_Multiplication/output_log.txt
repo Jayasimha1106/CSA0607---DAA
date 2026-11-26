@@ -1,0 +1,27 @@
+=== Q4: Correctness (vs conventional) ===
+Passed for n = 1,2,3,5,8,13,30,33,64 (incl. non powers of two via padding)
+
+=== Q4: Scalar multiplication counts (cutoff = 1) ===
+    n  conventional n^3  strassen 7^k   ratio  additions(S)
+    2                 8             7   0.875            18
+    4                64            49   0.766           198
+    8               512           343   0.670          1674
+   16              4096          2401   0.586         12870
+   32             32768         16807   0.513         94698
+   64            262144        117649   0.449        681318
+  128           2097152        823543   0.393       4842954
+
+=== Q4: Padding overhead for non powers of two ===
+    n  padded  mults (S)        n^3   S/n^3
+   33      64     117649      35937   3.274
+   65     128     823543     274625   2.999
+  100     128     823543    1000000   0.824
+
+=== Q4: Timing, best of 3 (ms) ===
+    n       conv  strassen(cut=1)  strassen(cut=32)    winner
+    8       0.03             1.10              0.03      conv
+   16       0.25             7.84              0.24  strassen
+   32       2.05            64.77              2.06      conv
+   64      16.35           427.20             16.28  strassen
+  128     155.59          3329.62            121.65  strassen
+  256    1088.84         22892.11            970.36  strassen

@@ -1,0 +1,24 @@
+DP[i][w]      w=   0   1   2   3   4   5   6   7
+i=0 (none)         0   0   0   0   0   0   0   0
+i=1 (P)            0   0  12  12  12  12  12  12
+i=2 (Q)            0   0  12  20  20  32  32  32
+i=3 (R)            0   0  12  20  25  32  37  45
+i=4 (S)            0   0  12  20  25  32  37  45
+
+Key decisions:
+ DP[1][7] = max(DP[0][7]=0,  DP[0][5]+12=12) = 12
+ DP[2][7] = max(DP[1][7]=12, DP[1][4]+20=32) = 32
+ DP[3][7] = max(DP[2][7]=32, DP[2][3]+25=45) = 45
+ DP[4][7] = max(DP[3][7]=45, DP[3][2]+30=42) = 45
+
+Optimal value : 45
+Items selected: ['Q', 'R'] | total weight = 7
+
+=== Additional tests ===
+capacity 0                 best=0   items=[]
+capacity 1 (nothing fits)  best=0   items=[]
+capacity 14 (all fit)      best=87  items=['P', 'Q', 'R', 'S']
+exact single fit           best=32  items=['P', 'Q']
+300 random instances: DP == brute force, reconstructed set valid
+
+All Task 3 tests passed.

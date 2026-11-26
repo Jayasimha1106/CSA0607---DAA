@@ -1,0 +1,23 @@
+=== Task 2.4 Desk-check (given instance) ===
+  A (d=2, p=80): latest free slot <= 2 is 2 -> SCHEDULE | slots=[None, 'A', None] profit=80
+  C (d=2, p=60): latest free slot <= 2 is 1 -> SCHEDULE | slots=['C', 'A', None] profit=140
+  D (d=3, p=40): latest free slot <= 3 is 3 -> SCHEDULE | slots=['C', 'A', 'D'] profit=180
+  B (d=1, p=35): no free slot in 1..1 -> REJECT   | slots=['C', 'A', 'D'] profit=180
+  E (d=1, p=25): no free slot in 1..1 -> REJECT   | slots=['C', 'A', 'D'] profit=180
+Final schedule (slot1, slot2, slot3): ['C', 'A', 'D'] | Total profit = 180
+
+=== Task 2.5 Challenge: change B's profit 35 -> 90 ===
+  B (d=1, p=90): latest free slot <= 1 is 1 -> SCHEDULE | slots=['B', None, None] profit=90
+  A (d=2, p=80): latest free slot <= 2 is 2 -> SCHEDULE | slots=['B', 'A', None] profit=170
+  C (d=2, p=60): no free slot in 1..2 -> REJECT   | slots=['B', 'A', None] profit=170
+  D (d=3, p=40): latest free slot <= 3 is 3 -> SCHEDULE | slots=['B', 'A', 'D'] profit=210
+  E (d=1, p=25): no free slot in 1..1 -> REJECT   | slots=['B', 'A', 'D'] profit=210
+Final schedule (slot1, slot2, slot3): ['B', 'A', 'D'] | Total profit = 210
+
+=== Additional tests ===
+single job       schedule=['X'] profit=10 expected=10
+all deadline 1   schedule=['Q'] profit=9 expected=9
+deadline > n     schedule=[None, None, None, None, None, None, None, 'P', 'Q'] profit=14 expected=14
+300 random instances: greedy == brute-force optimum
+
+All Task 2 tests passed.
